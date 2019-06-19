@@ -99,7 +99,8 @@ We reformulate the above problem using Bayes' theorem:
 \textbf{Assumption 1}: Uniform prior $\Pr{\param} = \text{constant}$\\
 \textbf{Assumption 2}: Independent Gaussians for each datum. Then the likelihood: 
 \[\Pr{\data | \param} = 
-    \prod_{k=1}^N \frac{1}{\sigma_k \sqrt{2\pi}} \exp \left(-\frac{R_k^2}{2} \right)
+    \prod_{k=1}^N \frac{1}{\sigma_k \sqrt{2\pi}}
+    \exp \left(-\frac{R_k^2}{2} \right)
     \propto 
     \exp \left(-\frac{\chi^2}{2} \right)
 \]
@@ -117,7 +118,8 @@ The goal is to maximize log-likelihood:
 \begin{frame}{Extension 1: conservative formulation}
 Tolerate that the noise can be above some prescribed threshold:
 \[
-    \Pr{\sigma | \sigma_0} = \frac{\sigma_0}{\sigma^2} \text{ for } \sigma\geq\sigma_0
+    \Pr{\sigma | \sigma_0} = \frac{\sigma_0}{\sigma^2} 
+    \text{ for } \sigma\geq\sigma_0
     \text{ and zero otherwise}   
 \]
 
@@ -128,9 +130,11 @@ Then the marginal likelihood for datum $D_k$ is:
 \]
 which gives
 \begin{multline*}
-    \Pr{D_k | \sigma_0} = \int_0^\infty \frac{\sigma_0}{\sigma^3\sqrt{2\pi}}
-        \exp\left( - \frac{ \left( F_k-D_k \right)^2}{2\sigma^2} \right) \, \dd \sigma =\\
-        \frac{1}{\sigma_0 \sqrt{2\pi}} \frac{1-\exp\left( -R_k^2/2 \right)}{R_k^2}
+    \Pr{D_k | \sigma_0} = \int_0^\infty
+    \frac{\sigma_0}{\sigma^3\sqrt{2\pi}}
+    \exp\left( - \frac{ \left( F_k-D_k \right)^2}{2\sigma^2} \right)
+    \, \dd \sigma =\\
+    \frac{1}{\sigma_0 \sqrt{2\pi}} \frac{1-\exp\left( -R_k^2/2 \right)}{R_k^2}
 \end{multline*}
 \end{frame}
 
@@ -139,8 +143,9 @@ which gives
 \begin{picture}(12.8, 9.6)
 \put(0, 8.5){
 \begin{minipage}{\linewidth}{
-    Ordinary Least Squares: $P \sim \exp \left(- R^2/2 \right)$ as $R\to\infty$\\
-    Conservative formulation: $P \sim \frac{1}{R^2}$ as $R\to\infty$ (less skewing effect)
+    Ordinary Least Squares: $P \sim \exp \left(- R^2/2\right)$ as $R\to\infty$\\
+    Conservative formulation: $P \sim \frac{1}{R^2}$ as $R\to\infty$
+    (less skewing effect)
 }
 \end{minipage}
 }
@@ -174,7 +179,8 @@ least squares (to be seen later).
 
 \begin{frame}
 \frametitle{Extension 2: the good-and-bad data model}
-Distribution of noise admits two possibilities: either noise is {\color{green}within threshold}
+Distribution of noise admits two possibilities:
+either noise is {\color{green}within threshold}
 or it is {\color{red}very large}:
 
 \[
@@ -231,7 +237,7 @@ where
 }
 \put(0, 1.75){
 \centering
-\includegraphics{fig-good-data.pdf}
+\includegraphics{good-data.pdf}
 }
 \end{picture}
 \end{frame}
@@ -295,7 +301,7 @@ LS, extension 2 &  9.3 & 0.8 & 349.7 & 4.1 \\
 }
 \put(0, 1.75){
 \centering
-\includegraphics{fig-bad-data.pdf}
+\includegraphics{bad-data.pdf}
 }
 \end{picture}
 \end{frame}
@@ -379,10 +385,12 @@ LS, ext.\ 2, $\beta = 0.01$, $\gamma = 200$ & 9.8 & 0.1 & 346.1 & 1.0 \\
     in~the presence of outliers (not robust)
     \item Bayesian formulation of the least-squares algorithms simplifies
     adjustments needed to accommodate outliers
-    \item Two extensions were considered: conservative formulation and bad-and-good formulation
-    \item Both formulations require careful choice of parameters for good performance
-    \item Conservative formulation gives worse uncertainties on the estimates, but requires
-    less parameters than the bad-and-good formulation
+    \item Two extensions were considered: conservative formulation and
+    bad-and-good formulation
+    \item Both formulations require careful choice of parameters for good
+    performance
+    \item Conservative formulation gives worse uncertainties on the estimates,
+    but requires less parameters than the bad-and-good formulation
 \end{itemize}
 \end{frame}
 
@@ -391,8 +399,11 @@ LS, ext.\ 2, $\beta = 0.01$, $\gamma = 200$ & 9.8 & 0.1 & 346.1 & 1.0 \\
 \begin{itemize}
     \item Sivia D.\ S., Skilling J. \emph{Data analysis: a Bayesian tutorial},
     OUP Oxford, 2006
-    \item Box, George E.\ P, Tiao G.\ C. \emph{A Bayesian approach to some outlier problems}, Biometrika, 1968, pp.\ 119--129
+    \item Box, George E.\ P, Tiao G.\ C.
+    \emph{A Bayesian approach to some outlier problems},
+    Biometrika, 1968, pp.\ 119--129
     \item Codes for this presentation are available at: 
+    \url{https://github.com/dmitry-kabanov/stochastic-numerics-2019-robust-least-squares}
 \end{itemize}
 \end{frame}
 
